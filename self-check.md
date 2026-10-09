@@ -19,7 +19,7 @@ Yes. The monitor posts a digest after every check, even when every page passes (
 
 <details><summary>Answer</summary>
 
-A page is also flagged when one fix could save at least 0.1 seconds, even with good scores. You do nothing: low risk is never reported on its own. ([Flagged](glossary.md#flagged), [table row 6](what-to-do.md#the-table))
+A page is also flagged when one fix could save at least 0.1 seconds, even with good scores. You do nothing: low risk is never reported on its own. ([Flagged](glossary.md#flagged), [table row 1](what-to-do.md#the-table))
 </details>
 
 **3. The `history` tab shows `performance` = `0.42`. What would Slack show, and what risk is that?**
@@ -44,7 +44,7 @@ You can't tell. ❌ means the page **could not be tested**. Open it in your brow
 
 <details><summary>Answer</summary>
 
-No. The scores and the risk are the same whoever writes the summary. Re-check it once, as with any new 🔴, and report it if it's still 🔴 or 🟠. Tell the operator only if **every** flagged page in the digest shows *(fallback summary)*. ([Fallback summary](what-to-do.md#fallback-summary))
+No. The scores and the risk are the same whoever writes the summary. Re-check it once, as with any new 🔴. If it's still 🔴, report it today. If the re-check shows 🟠, log it for Monday's report. Tell the operator only if **every** flagged page in the digest shows *(fallback summary)*. ([Fallback summary](what-to-do.md#fallback-summary))
 </details>
 
 **6. You pasted `www.example.com` into the form and got "Nothing was checked". Why?**
@@ -58,7 +58,7 @@ Addresses must start with `https://` (or `http://`). Copy the address from your 
 
 <details><summary>Answer</summary>
 
-The risk is higher than in the page's log row, and `last_sent` was three weeks ago. Re-check it once. If it's still 🔴, send template B and edit the page's existing row: new `last_sent`, `risk` and `mobile_score`, status `updated`. If the risk hadn't changed, it would only go in Monday's weekly report. ([Table rows 4 and 5](what-to-do.md#the-table))
+It's 🔴 and the log only has it at 🟠, so re-check it once. If it's still 🔴, send template B today, because the client has already heard about this page (`last_sent` is filled in). Then edit the existing row: risk `high`, new `last_sent` and `mobile_score`, status `updated`. If it had stayed 🟠, it would only appear in Monday's report as a *Still open* line. ([Table rows 2 and 5](what-to-do.md#the-table))
 </details>
 
 **8. Slack shows 🚨 *PageSpeed Monitor failed at Build reports*. Which page has the problem?**
@@ -79,6 +79,6 @@ Do these once in your first week. Each takes under 10 minutes. If you can't open
 - [ ] **Read a trend.** Pick one page from the daily list. In `history`, filter to that page and `mobile`. Has its score gone up, down, or stayed the same this week?
 - [ ] **Read a root cause.** Open one `findings` row. For its first root cause, say in your own words: what's wrong, which device, roughly how much time Google estimates it could save, and how big the fix is.
 - [ ] **Test a mistake.** Send the form `example.com` (no `https://`) and read the message. Then send `https://www.wikipedia.org/` and `not-a-page` together, and find which one was skipped.
-- [ ] **Practise an escalation.** Pick a real 🔴 or 🟠 page. Go through table row 2: check the log, post "Re-checking" in the digest's thread, re-check the page, fill in template A, and write the log row. Ask your lead to check them before anything is sent.
+- [ ] **Practise an escalation.** Pick a real 🔴 or 🟠 page. Go through table row 2 or 3: check the log, post "Re-checking" in the digest's thread, re-check the page, then either fill in template A (🔴) or write the log row and a *New* line for Monday's report (🟠). Ask your lead to check them before anything is sent.
 
 When you've done these, you're ready to handle the digest on your own.

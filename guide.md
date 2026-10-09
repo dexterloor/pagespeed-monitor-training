@@ -88,13 +88,14 @@ These are the everyday cases. Before you send anything, use the [full table](wha
 
 | You see… | Do this |
 |---|---|
-| ✅ passed | Nothing |
-| 🔴 or 🟠 on a page that isn't in the escalation log | Re-check it once. If it's still 🔴 or 🟠, send template A to the client contact today and add a log row |
-| 🔴 or 🟠, already in the log at the same risk or lower | Nothing today. It goes in Monday's weekly report |
-| Gone up from 🟠 to 🔴 on a logged page, nothing sent in 7+ days | Re-check it once. If it's still 🔴, send template B and update the log |
-| 🟡 low | Nothing. Low is never reported on its own |
+| ✅ passed, or 🟡 low | Nothing. Low is never reported on its own |
+| 🔴 on a page that isn't in the escalation log at 🔴 | Re-check it once. If it's still 🔴, message the client contact today (template A, or B if they've already heard about it) and update the log |
+| 🟠 on a page that isn't in the log | Re-check it once. If it's still 🟠, add a log row. It goes in Monday's weekly report, not a message today |
+| 🔴 or 🟠, already in the log at the same risk or higher | Nothing today. It goes in Monday's weekly report |
 | ❌ *could not be tested* | Open the page yourself, then [follow these steps](what-to-do.md#a-page-could-not-be-tested) |
 | 🚨, *(error summary)*, *(fallback summary)* on every flagged page, or no digest | Tell the operator today |
+
+Only 🔴 pages and pages that are down reach a client the same day, and each client gets at most one message a day. Everything else waits for Monday's weekly report.
 
 React 👀 on a digest when you pick it up and ✅ when you're done. If someone else's 👀 is already on it, leave it to them. When your re-check digest arrives, react 👀 on it so nobody else picks it up.
 

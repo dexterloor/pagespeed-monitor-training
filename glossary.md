@@ -30,7 +30,7 @@ The person who keeps the monitor running and fixes it when it breaks. Tell them 
 The person at the client you report a page to. Your lead keeps the list of who that is for each site. They decide what gets fixed, and pass it to their developer.
 
 ### Escalation log
-The `escalations` tab in the Sheet, which you fill in. One row for each page you've reported to a client, updated as things change. It's how everyone knows what has already been sent. See [the escalation log](what-to-do.md#the-escalation-log).
+The `escalations` tab in the Sheet, which you fill in. One row for each page you've reported to a client (or logged for Monday's report), updated as things change. It's how everyone knows what has already been sent. See [the escalation log](what-to-do.md#the-escalation-log).
 
 ---
 

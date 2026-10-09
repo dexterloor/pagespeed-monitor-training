@@ -35,7 +35,7 @@ Each **run** (one daily check, or one form submission) has a **run number**. It'
 
 ### Find a run from the digest
 
-Take the run number from the digest footer, then press **Ctrl+F** (**Cmd+F** on a Mac) and search for it. Its rows share that `run_id`. Ctrl+F only searches the tab you're on, so try `history` first, then `errors` (a run where every page was ❌ only has rows there). If the number isn't in the Sheet at all, [tell the operator](what-to-do.md#the-table) (row 9).
+Take the run number from the digest footer, then press **Ctrl+F** (**Cmd+F** on a Mac) and search for it. Its rows share that `run_id`. Ctrl+F only searches the tab you're on, so try `history` first, then `errors` (a run where every page was ❌ only has rows there). If the number isn't in the Sheet at all, [tell the operator](what-to-do.md#the-table) (row 10).
 
 ### Is this page getting worse, or is it always like this?
 
@@ -94,6 +94,6 @@ A page that couldn't be tested has **6 rows** here (3 tests × 2 devices). Copy 
 
 ## `escalations`: what's been sent
 
-You fill this tab in, not the monitor. There's one row per page you've reported to a client, which you edit as things change. See [the escalation log](what-to-do.md#the-escalation-log).
+You fill this tab in, not the monitor. There's one row per page you've reported to a client, or logged for Monday's report, which you edit as things change. See [the escalation log](what-to-do.md#the-escalation-log).
 
 Next: [what-to-do.md](what-to-do.md)

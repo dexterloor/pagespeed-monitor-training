@@ -4,7 +4,7 @@
 
 ← Back to the [guide](guide.md)
 
-> Demo setup: the daily check is switched off for now, so ignore "no digest" (row 9) until the operator turns it back on.
+> Demo setup: the daily check is switched off for now, so ignore "no digest" (row 10) until the operator turns it back on.
 
 ---
 
@@ -14,8 +14,10 @@
 2. Problems with the monitor go to the operator, the person who keeps it running. They work from the [runbook](https://github.com/dexterloor/pagespeed-monitor/blob/main/docs/runbook.md).
 3. Look in the [escalation log](#the-escalation-log) before you message a client, and fill it in straight after. It's the `escalations` tab in the Sheet, and it's how the team knows what's already gone out.
 4. React 👀 on a digest when you start on it and ✅ when you've finished. If someone else's 👀 is already there, leave it to them.
-5. "Today" means before your shift ends. The weekly report goes out on Mondays: one message to each client contact, with their C lines and then their D lines. Your lead will tell you who sends it.
-6. If what you see isn't in the table, or you're not sure, ask your lead rather than guess.
+5. "Today" means before your shift ends. Send **one message per client contact per day**: if a client has several things today (templates A, B or F), put them all in one message.
+6. The weekly report goes out on Mondays: one message to each client contact who has something in it, using [templates C and D](#c-weekly-report-new-and-still-open). If that client also has something for today, put it at the top of the same message. Your lead will tell you who sends it.
+7. After a gap (a weekend or a day off), decide what to send from the **latest digest only**. But when you count checks for rows 6 and 7, count every scheduled check in `history`, weekends included. A *tested* check is one where the page wasn't ❌.
+8. If what you see isn't in the table, or you're not sure, ask your lead rather than guess.
 
 ---
 
@@ -23,19 +25,25 @@
 
 | # | You see | Check first | Then | When |
 |---|---|---|---|---|
-| 1 | ✅ *… passed* | | Nothing. React ✅ | |
-| 2 | 🔴 or 🟠 on a page that isn't in the log | [Re-check it once](#re-checking-a-page) | Still 🔴 or 🟠: send [template A](#a-new-problem) and add a log row | Today |
-| 3 | A digest from your own re-check | | Use it as the result of the re-check. Don't re-check it again | Today |
-| 4 | Risk higher than in the page's log row (🟠 → 🔴), and `last_sent` is more than 7 days ago | [Re-check it once](#re-checking-a-page) | Still higher: send [template B](#b-it-got-worse) and update the row | Today |
-| 5 | 🔴 or 🟠 on a page already in the log, and row 4 doesn't apply | | Nothing today. It goes in the weekly report as a [C line](#c-weekly-still-open) | Monday |
-| 6 | 🟡 low | | Nothing. Low is never reported on its own | |
-| 7 | A logged page that hasn't been 🔴 or 🟠 in the last 3 daily checks | `history`, filtered to the page and `trigger` = `schedule` | Put a [D line](#d-fixed) in the weekly report and set the row to `fixed` | Monday |
+| 1 | ✅ *… passed*, or 🟡 low | | Nothing. Low is never reported on its own. React ✅ | |
+| 2 | 🔴 on a page that isn't in the log at 🔴 (no row, or a 🟠 row) | [Re-check it once](#re-checking-a-page) | Still 🔴: send [template A](#a-new-problem) if there's no row or its `last_sent` is blank, or [template B](#b-it-got-worse) if `last_sent` is filled in. Then set the row to risk `high`. Re-check shows 🟠: go to row 3. Re-check shows ✅ or 🟡: nothing | Today |
+| 3 | 🟠 on a page that isn't in the log | [Re-check it once](#re-checking-a-page) | Still 🟠: add a row with risk `medium` and `last_sent` blank. Don't message the client today: it goes in Monday's report as a *New* line. Fill in `first_sent` and `last_sent` when that report goes out | Monday |
+| 4 | A digest from your own re-check | | Use it as the result of the re-check. Don't re-check it again | Today |
+| 5 | 🔴 or 🟠 on a page in the log at the same risk or higher | | Nothing today. It goes in Monday's report as a *Still open* line, with today's risk and score. Skip it if the row says `accepted` | Monday |
+| 6 | A page logged at 🔴 with no 🔴 in its last 3 tested scheduled checks, and at least one 🟠 | `history`, filtered to the page and `trigger` = `schedule` | An *Improved* line in Monday's report. Set the row's risk to `medium` | Monday |
+| 7 | A logged page that was ✅ or 🟡 in its last 3 tested scheduled checks | `history`, as in row 6 | A *Fixed* line in Monday's report. Set the row to `fixed` | Monday |
 | 8 | ❌ *could not be tested* on one or a few pages | Already in the log as `down`? Then nothing today | Otherwise [see below](#a-page-could-not-be-tested) | Today |
-| 9 | Any of these: ❌ on every page · *(fallback summary)* on every flagged page · *(error summary)* on any page · no digest an hour after the daily check time · a digest whose run number isn't in the Sheet | Has someone already told the operator? Look in the digest's thread | [Template E](#e-to-the-operator) to the operator, once | Today |
-| 10 | 🚨 *PageSpeed Monitor failed at …* | | Paste the whole message to the operator. That also covers a missing digest | Today |
-| 11 | *(fallback summary)* on only some pages | | Nothing extra. Use the results as normal | |
-| 12 | The client says the page [looks fast to them](#the-client-says-it-looks-fast-to-me) | | Send [template G](#g-it-looks-fast-to-me). If they push back again, hand it to your lead | Today |
-| 13 | The form says ["Nothing was checked"](#the-form-said-nothing-was-checked) | | Fix the addresses and try again | |
+| 9 | A page logged as `down` loads again | | Update its row from today's digest. 🔴: send template A, risk `high`. 🟠: risk `medium`, `last_sent` blank, *New* line on Monday. ✅ or 🟡: *Fixed* line on Monday | Today / Monday |
+| 10 | Any of these: ❌ on every page · *(fallback summary)* on every flagged page · *(error summary)* on any page · no digest an hour after the daily check time · a digest whose run number isn't in the Sheet | Has someone already told the operator? Look in the digest's thread | [Template E](#e-to-the-operator) to the operator, once | Today |
+| 11 | 🚨 *PageSpeed Monitor failed at …* | | Paste the whole message to the operator. That also covers a missing digest | Today |
+| 12 | *(fallback summary)* on only some pages | | Nothing extra. Use the results as normal | |
+| 13 | The client says the page [looks fast to them](#the-client-says-it-looks-fast-to-me) | | Send [template G](#g-it-looks-fast-to-me). If they push back again, hand it to your lead | Today |
+| 14 | The client says they won't fix a page | | Set its row to `accepted` and write what they said in `notes`. It leaves the weekly report, but row 2 still applies if it goes 🔴 | |
+| 15 | The form says ["Nothing was checked"](#the-form-said-nothing-was-checked) | | Fix the addresses and try again | |
+
+A page is **in the log** if its row says `open`, `updated` or `accepted`. If a page with a `fixed` row is flagged again, reopen that same row: status `open`, clear `last_sent`, add a note "re-flagged [date]". Then treat the page as new (row 2 or 3).
+
+Only 🔴 and pages that are down reach a client the same day. Everything else waits for Monday, so clients get one useful message a week instead of a stream of alerts.
 
 ---
 
@@ -46,9 +54,9 @@ Scores move a few points between checks, so before you report a new or worse pro
 1. Reply in the original digest's thread: "Re-checking [url]". That stops a teammate re-checking the same page. If you have several pages to re-check, put them all in one form (up to 10).
 2. Run them through the ["Check a page" form](guide.md#2-the-check-a-page-form).
 3. Wait for the digest. It usually takes a few minutes and should never take more than 15. React 👀 on it so nobody else picks it up. If nothing arrives after 15 minutes, tell the operator when you sent it and which pages, and use tomorrow's check instead.
-4. If the page is still 🔴 or 🟠, send, using the summary and run number from the re-check. If it dropped to 🟡 or passed, don't send. Say so in the original digest's thread.
+4. Follow the table row for what the **re-check** shows, using its summary and run number. If it dropped to 🟡 or passed, don't send, and say so in the original digest's thread.
 
-If the page dropped on yesterday's re-check and it's 🔴 or 🟠 again today, don't re-check it a second time. Send.
+Always re-check before you send or log something new, even if the page dropped on yesterday's re-check too. A page that keeps flipping either side of a line is noise, and the weekly report will catch it if it settles.
 
 Can't open the form? Tell the operator once. Until it's fixed, the next daily check is your re-check: send if the page is still 🔴 or 🟠. Don't use pagespeed.web.dev as a re-check, because it scores pages differently.
 
@@ -61,7 +69,7 @@ Can't open the form? Tell the operator once. Until it's fixed, the next daily ch
 3. If it loads, open [pagespeed.web.dev](https://pagespeed.web.dev/), paste the address and click Analyze. All you're finding out is whether Google can test the page. Ignore the score, because that site tests differently from the monitor.
 4. Send the operator [template E](#e-to-the-operator) with the run number, one `error_message` from the `errors` tab, and whether pagespeed.web.dev worked. They'll work out whether the problem is the site or the monitor.
 
-When a page logged as `down` comes back and shows 🔴 or 🟠, treat it as new (row 2).
+When a page logged as `down` loads again, follow row 9.
 
 → Operator: [runbook: a page could not be tested](https://github.com/dexterloor/pagespeed-monitor/blob/main/docs/runbook.md#a-page-could-not-be-tested)
 
@@ -69,7 +77,7 @@ When a page logged as `down` comes back and shows 🔴 or 🟠, treat it as new 
 
 *(fallback summary)* means Claude, the AI that writes the summaries, wasn't available, so the monitor wrote a simpler one. The scores and risk are the same either way, because the monitor works out risk itself. Only the wording and the fix suggestions are plainer.
 
-If only some pages have it, carry on as normal. If every flagged page in a digest has it, the AI step is probably down, so tell the operator once (row 9). *(error summary)* is different: only a placeholder was written, and the operator needs to know the first time you see it.
+If only some pages have it, carry on as normal. If every flagged page in a digest has it, the AI step is probably down, so tell the operator once (row 10). *(error summary)* is different: only a placeholder was written, and the operator needs to know the first time you see it.
 
 → Operator: [runbook: Claude unavailable](https://github.com/dexterloor/pagespeed-monitor/blob/main/docs/runbook.md#claude-unavailable-fallback)
 
@@ -117,14 +125,23 @@ Copy one, fill in the brackets and send it. Client messages go the way you norma
 > I can send the full details for your developer if that helps.
 
 ### B. It got worse
-> Hi [name], an update on [url]: it's got worse since we flagged it on [first_sent from the log]. The mobile score is now [n], down from [mobile_score in the log].
+> Hi [name], an update on [url], which we flagged on [first_sent from the log]: it's now high risk (it was [risk in the log]). Today's scores: mobile [n], desktop [n].
 > [summary from the digest]
+> Suggested fix: [quick win from the digest]
 
-### C. Weekly: still open
-> Still open: [url], [risk], mobile score [n], first flagged [first_sent].
+### C. Weekly report: new and still open
+> Hi [name], here's this week's page speed update.
+>
+> New this week: [url], [risk] risk, mobile [n], desktop [n]. [summary from the digest] Suggested fix: [quick win].
+>
+> Still open: [url], [today's risk] risk, mobile [today's score], first flagged [first_sent].
 
-### D. Fixed
-> No longer a problem: [url] (mobile score [n]). Thanks for sorting it!
+### D. Weekly report: improved and fixed
+> Better: [url] is now medium risk (it was high), mobile [n].
+>
+> Fixed: [url] is no longer a problem (mobile [n]). Thanks for sorting it!
+
+Leave out any heading with nothing under it. If a client has nothing at all this week, don't send them a report.
 
 ### E. To the operator
 > PageSpeed Monitor: [what you saw, e.g. "no digest today", "every summary is a fallback", "page couldn't be tested"]. Run [number, if there is one]. [error message or screenshot, if any]
@@ -139,18 +156,18 @@ Copy one, fill in the brackets and send it. Client messages go the way you norma
 
 ## The escalation log
 
-It's the `escalations` tab in the PageSpeed Monitor Sheet. Keep one row per page: add it when you send template A or F, and edit that same row when you send B or D. If the tab isn't there yet, ask the operator to add it.
+It's the `escalations` tab in the PageSpeed Monitor Sheet. Keep one row per page: add it when you send template A or F, or when you log a new 🟠 (row 3). After that, edit the same row. If the tab isn't there yet, ask the operator to add it.
 
 | Column | What goes in it |
 |---|---|
-| `first_sent` | The day you first sent anything about this page |
-| `last_sent` | The day you last sent A, B, D or F |
+| `first_sent` | The day the client first heard about this page. Blank for a new 🟠 until Monday's report |
+| `last_sent` | The day you last told the client anything about it (a template or a weekly line). Blank until then |
 | `url` | The page, copied from the digest |
-| `risk` | Its risk when you last sent, or `down` for template F |
+| `risk` | The highest risk the client has been told about: `high` or `medium`, or `down` for template F. A new 🟠 row starts at `medium`. It only goes down with an *Improved* line (row 6) |
 | `mobile_score` | The mobile score when you last sent |
 | `sent_to` | Who you sent it to |
 | `run_id` | The run you last saw it in (your re-check, if you did one) |
-| `status` | `open`, `updated` or `fixed` |
+| `status` | `open`, `updated` (after template B), `accepted` (the client won't fix it) or `fixed` |
 | `notes` | Anything useful, e.g. "client says fix planned for next month" |
 
-A page counts as in the log if its row says `open` or `updated`.
+A page counts as in the log if its row says `open`, `updated` or `accepted`.
