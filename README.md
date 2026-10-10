@@ -4,7 +4,7 @@ Training for the people who **receive** the [PageSpeed Monitor](https://github.c
 
 The monitor checks web pages once a day (and on demand) with Google PageSpeed Insights, has Claude explain what's wrong in plain English, logs everything to a Google Sheet and posts a Slack digest. This pack teaches someone in their first week how to read those results, decide what they mean, and pass them to the right person.
 
-> 🎥 Loom walkthrough: _link to come_
+> 🎥 Loom walkthrough: https://www.loom.com/share/66b6a9435ee144f68568b6abbfdbeeab
 
 ## Start here
 
